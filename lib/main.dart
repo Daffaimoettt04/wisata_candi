@@ -1,4 +1,5 @@
 import 'package:daffa/data/candi_data.dart';
+import 'package:daffa/screens/home_screen.dart';
 import 'package:daffa/screens/profil_screen.dart';
 import 'package:daffa/screens/search_screen.dart';
 import 'package:daffa/screens/sign_in_screen.dart';
@@ -33,8 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: SearchScreen()
-      //home: DetailScreen(candi :candiList[0]),
+      home: HomeScreen()
     );
   }
 }
