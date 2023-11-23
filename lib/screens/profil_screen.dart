@@ -11,7 +11,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isSignedIn = true;
   String fullName = '';
   String userName = '';
-  int favoriteCandiCount = 0;
+  int  favoriteCandiCount = 0;
 
   // TODO: 5. Implementasi funasi signIn
   void signIn () {

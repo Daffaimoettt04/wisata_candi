@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ProfilInfoItem extends StatelessWidget {
   const ProfilInfoItem({super.key});
 
