@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});
@@ -17,36 +18,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscurePassword = true;
 
   // TODO: 1. Membuat metode sign up
-  void _signUp() async {
-    String name = _fullnameController.text.trim();
-    String username = _usernameController.text.trim();
-    String password = _passwordController.text.trim();
-    
-    if(password.length < 8 || 
-    !password.contains(RegExp(r'[A-Z]')) ||
-    !password.contains(RegExp(r'[a-z]')) ||
-    !password.contains(RegExp(r'[0-9]')) ||
-    !password.contains(RegExp(r'[@#$%^&*(),.?":{}|<>]'))) {
+  void _signUp() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String name = _fullnameController.text.trim();
+    final String username = _usernameController.text.trim();
+    final String password = _passwordController.text.trim();
+
+    if (password.length < 8 ||
+        !password.contains(RegExp(r'[A-Z]')) ||
+        !password.contains(RegExp(r'[a-z]')) ||
+        !password.contains(RegExp(r'[0-9]')) ||
+        !password.contains(RegExp(r'[A-Z]')) ||
+        !password.contains(RegExp(r'[!@#$%^&*(),.?":{}<>]'))) {
       setState(() {
-        _errorText = 'Minimal 8 karakter, kombinasi [A-Z], [a-z], [0-9], [@#\\\$%^&*(),.?":{}|<>] ';
+        _errorText = 'Minimal 8 karakter,kombinasi [A-Z], [a-z], [0-9], [!@#\\\$%^&*(),.?":{}<>]';
       });
       return;
     };
 
-    print('*** Sign Up berhasil!');
-    print('fullname: $name');
-    print('username: $username');
+    try {
+      prefs.setString('name', name);
+      prefs.setString('username', username);
+      prefs.setString('password', password);
+    }catch (e) {
+      print('Terjadi Kesalahan : $e');
+    }
 
+    // print('*** Sign up berhasil!');
+    // print('fullname : $name');
+    // print('username : $username');
+    // print('password : $password');
+
+    Navigator.pushReplacementNamed(context, '/signin');
   }
 
-  // TODO: 2. Membuat metode dispose
+
+  // TODO : 2. Membuat metode dispose
   @override
   void dispose() {
-    // TODO: 3. Implement dispose
+    // TODO: implement dispose
     _fullnameController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
-    super.dispose();
   }
 
   @override
@@ -102,29 +115,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   obscureText: _obscurePassword,
                 ),
-                // TODO : 7. Pasang ElevatedButton Sign Up
+                // TODO : 7. Pasang ElevatedButton Sign In
                 SizedBox(height: 20),
                 ElevatedButton(
-                    onPressed: _signUp,
+                    onPressed:_signUp ,
                     child: Text('Sign Up')
-                        // if(_passwordController.value.text.length < 8){
-                        //   _errorText = "Password harus lebih dari atau sama dengan 8 karakter";
-                        // } else if(!_passwordController.value.text.contains(RegExp(r'[A-z'))){
-                        //   _errorText = 'Password harus berisi uppercase';
-                        // }else if(!_passwordController.value.text.contains(RegExp(r'[a-z]'))){
-                        //   _errorText = 'Password harus berisi lowercase';
-                        // }else if(!_passwordController.value.text.contains(RegExp(r'[0-9]'))){
-                        //   _errorText = 'Password harus berisi angka';
-                        // }else if(!_passwordController.value.text.contains(RegExp(r'[/*.,]'))){
-                        //   _errorText = 'Password harus berisi karakter spesial (/*.,)';
-                        // }else if(
-                        // _passwordController.value.text.contains(_fullnameController.value.text) ||
-                        //     _passwordController.value.text.contains(_usernameController.value.text)
-                        // ){
-                        //   _errorText = 'Password harus berisi nama atau nama pengguna anda';
-                        // } else {
-                        //   _errorText = '';
-                        // }
                 ),
               ],
             ),

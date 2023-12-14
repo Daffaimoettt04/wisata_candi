@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+import 'package:achmad_daffa_fattah_final/screens/signIn_screen.dart';
+
+class ProfilScreen extends StatefulWidget {
+  const ProfilScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ProfilScreen> createState() => _ProfilScreenState();
 }
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  // TODO: 1. Deklarasikan variable yang dibutuhkan
-  bool isSignedIn = true;
+class _ProfilScreenState extends State<ProfilScreen> {
+  // TODO: 1. Deklarasikan variabel yang dibutuhkan
+  bool isSignedIn = false;
   String fullName = '';
   String userName = '';
-  int  favoriteCandiCount = 0;
+  int favoriteCandiCount = 0;
 
-  // TODO: 5. Implementasi funasi signIn
+  // TODO: 5. Implementasi fungsi singin
   void signIn () {
-    setState(() {
-      isSignedIn = !isSignedIn;
-    });
+    // Navigator.pushNamed(
+    //   context, '/sign_in'
+    // );
+    // setState(() {
+    //   // isSignedIn = !isSignedIn;
+    // });
+    Navigator.pushNamed(context, '/signin');
   }
-  // TODO: 6. Implementasi funasi signOut
+  // TODO: 6. Implementasi fungsi singout
   void signOut () {
     setState(() {
       isSignedIn = !isSignedIn;
@@ -32,10 +37,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         children: [
           Container(
-            height: 200,width: double.infinity, color: Colors.deepPurple,
+            height: 200, width: double.infinity, color: Colors.deepPurple,
           ),
           Padding(
-            padding:const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal:16),
             child: Column(
               children: [
                 // TODO: 2. Buat bagian ProfilHeader yang berisi gambar profil
@@ -43,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 200 - 50),
-                    child : Stack(
+                    child: Stack(
                       alignment: Alignment.bottomRight,
                       children: [
                         Container(
@@ -58,13 +63,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         if(isSignedIn)
                           IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.camera_alt), color: Colors.deepPurple[50],),
+                            onPressed: () {},
+                            icon: Icon(Icons.camera_alt, color: Colors.deepPurple[50],),
+                          ),
                       ],
                     ),
-                  )
+                  ),
                 ),
-                  // TODO: 3. Buat bagian ProfileInfo yang berisi info profil
+                // TODO: 3. Buat bagian profilInfo yang berisi info profil
                 SizedBox(height: 20),
                 Divider(color: Colors.deepPurple[100]),
                 SizedBox(height: 4),
@@ -72,17 +78,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     SizedBox(width: MediaQuery.of(context).size.width / 3,
                       child: Row(
-                        children: [
+                        children:[
                           Icon(Icons.lock, color: Colors.amber),
                           SizedBox(width: 8),
                           Text('Pengguna', style: TextStyle(
-                            fontSize: 18,fontWeight: FontWeight.bold,
+                            fontSize: 18, fontWeight: FontWeight.bold,
                           ),),
                         ],
                       ),),
                     Expanded(
-                      child: Text(': $userName',style: TextStyle(
-                          fontSize: 18),),),
+                      child: Text(': $userName', style: TextStyle(
+                          fontSize: 18
+                      ),),
+                    ),
                   ],
                 ),
                 SizedBox(height: 4),
@@ -92,17 +100,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     SizedBox(width: MediaQuery.of(context).size.width / 3,
                       child: Row(
-                        children: [
+                        children:[
                           Icon(Icons.person, color: Colors.blue),
                           SizedBox(width: 8),
                           Text('Nama', style: TextStyle(
-                            fontSize: 18,fontWeight: FontWeight.bold,
+                            fontSize: 18, fontWeight: FontWeight.bold,
                           ),),
                         ],
                       ),),
                     Expanded(
-                      child: Text(': $fullName',style: TextStyle(
-                          fontSize: 18),),),
+                      child: Text(': $fullName', style: TextStyle(
+                          fontSize: 18
+                      ),),
+                    ),
                     if(isSignedIn) Icon(Icons.edit),
                   ],
                 ),
@@ -113,21 +123,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     SizedBox(width: MediaQuery.of(context).size.width / 3,
                       child: Row(
-                        children: [
+                        children:[
                           Icon(Icons.favorite, color: Colors.red),
                           SizedBox(width: 8),
                           Text('Favorite', style: TextStyle(
-                            fontSize: 18,fontWeight: FontWeight.bold,
+                            fontSize: 18, fontWeight: FontWeight.bold,
                           ),),
                         ],
                       ),),
                     Expanded(
-                      child: Text(': $favoriteCandiCount',style: TextStyle(
-                          fontSize: 18),),),
+                      child: Text(': $fullName', style: TextStyle(
+                          fontSize: 18
+                      ),),
+                    ),
                     if(isSignedIn) Icon(Icons.edit),
                   ],
                 ),
-                // TODO: 4. Buat ProfileActions yang berisi TextButton sign in/out
+                // TODO: 4. Buat ProfilActions yang berisi TextButton sign in/out
                 SizedBox(height: 4),
                 Divider(color: Colors.deepPurple[100]),
                 SizedBox(height: 20),
